@@ -77,3 +77,21 @@ services:
       ZK_HOSTS: "zookeeper:2181"
     networks:
       - ${GLOBAL_NETWORK:-kafka}
+#
+#  kafka-ui:
+#    image: provectuslabs/kafka-ui:latest
+#    container_name: kafka-ui
+#    depends_on:
+#      - kafka-broker-1
+#      - kafka-broker-2
+#      - kafka-broker-3
+#    ports:
+#      - "9001:8080"
+#    restart: always
+#    environment:
+#      KAFKA_CLUSTERS_0_NAME: local
+#      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: localhost:19092
+#      SCHEMA_REGISTRY_LISTENERS: zookeeper:2181
+#      KAFKA_CLUSTERS_0_SCHEMAREGISTRY: schema-registry:8081
+#    networks:
+#      - ${GLOBAL_NETWORK:-kafka}

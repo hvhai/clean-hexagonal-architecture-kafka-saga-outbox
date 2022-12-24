@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = {Exception.class})
     @ResponseBody
     public ErrorDTO handleOrderDomainException(Exception e) {
-        log.error("Error occurred: {}", e.getMessage());
+        log.error("Error occurred: {}", e.getMessage(), e);
         return ErrorDTO.builder()
                 .code(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
                 .message("Unknown error occurred")
@@ -34,14 +34,14 @@ public class GlobalExceptionHandler {
         ErrorDTO errorDTO;
         if (e instanceof ConstraintViolationException) {
             String violations = extractViolationsFromException((ConstraintViolationException) e);
-            log.error("Error occurred: {}", violations);
+            log.error("Error occurred: {}", violations, e);
             errorDTO = ErrorDTO.builder()
                     .code(HttpStatus.BAD_REQUEST.getReasonPhrase())
                     .message(violations)
                     .build();
         }
         else {
-            log.error("Error occurred: {}", e.getMessage());
+            log.error("Error occurred: {}", e.getMessage(), e);
             errorDTO = ErrorDTO.builder()
                     .code(HttpStatus.BAD_REQUEST.getReasonPhrase())
                     .message(e.getMessage())
